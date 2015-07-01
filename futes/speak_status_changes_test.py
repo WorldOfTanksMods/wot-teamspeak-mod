@@ -21,7 +21,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "attack"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"Erkki Meikalainen": {"metadata": "<wot_nickname_start>TuhoajaErkki<wot_nickname_end>"}
 		})
@@ -30,6 +29,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"Erkki Meikalainen": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "attack"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
@@ -41,7 +41,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "firstEnemy"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"Erkki Meikalainen": {"metadata": "<wot_nickname_start>TuhoajaErkki<wot_nickname_end>"}
 		})
@@ -51,6 +50,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.call_later(lambda: self.change_ts_client_state(users={"Erkki Meikalainen": {"speaking": False}}), timeout=1)
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "firstEnemy"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), False)
@@ -62,7 +62,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "help_me"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"TuhoajaERKKI [DUMMY]": {}
 		})
@@ -71,6 +70,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"TuhoajaERKKI [DUMMY]": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "help_me"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
@@ -86,7 +86,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "negative"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"TuhoajaErkki / Erkki Meikalainen [DUMMY]": {}
 		})
@@ -95,6 +94,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"TuhoajaErkki / Erkki Meikalainen [DUMMY]": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "negative"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
@@ -109,7 +109,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "positive"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"Erkki Meikalainen": {}
 		})
@@ -118,6 +117,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"Erkki Meikalainen": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "positive"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
@@ -136,7 +136,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "stop"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"Erkki Meikalainen [DUMMY]": {}
 		})
@@ -145,6 +144,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"Erkki Meikalainen [DUMMY]": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "stop"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
@@ -159,7 +159,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"action": "attack"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"Erkki Meikalainen": {"metadata": "<wot_nickname_start>TuhoajaErkki<wot_nickname_end>"}
 		})
@@ -168,6 +167,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"Erkki Meikalainen": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(min_wait=5, verifiers=[
 			lambda: mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "attack"),
 			lambda: not mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
@@ -180,7 +180,6 @@ class SpeakStatusChanges(TestCaseBase):
 				"enabled": "off"
 			}
 		)
-		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.change_ts_client_state(connected_to_server=True, users={
 			"Erkki Meikalainen": {"metadata": "<wot_nickname_start>TuhoajaErkki<wot_nickname_end>"}
 		})
@@ -189,6 +188,7 @@ class SpeakStatusChanges(TestCaseBase):
 				lambda: self.change_ts_client_state(users={"Erkki Meikalainen": {"speaking": True}})
 			]
 		})
+		self.change_game_state(mode="battle", players=[{"name": "TuhoajaErkki"}])
 		self.run_in_event_loop(min_wait=5, verifiers=[
 			lambda: not mock_was_called_with(self.Minimap_showActionMarker, self.get_vehicle_id("TuhoajaErkki"), "attack"),
 			lambda: mock_was_called_with(self.VOIP_onPlayerSpeaking, self.get_player_id("TuhoajaErkki"), True)
