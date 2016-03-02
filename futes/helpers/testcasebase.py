@@ -121,16 +121,17 @@ class TestCaseBase(unittest.TestCase):
 
 	def __install_event_handler(self, name, callback):
 		if self.mod_tessumod is not None:
+			cq = sys.modules["tessumod.application"].get_injected("chatclient").get_clientquery()
 			if name == "on_connected_to_ts_server":
-				self.mod_tessumod.g_ts.on_connected_to_server += callback
+				cq.on("connected-server-name", callback)
 			elif name == "on_connected_to_ts_client":
-				self.mod_tessumod.g_ts.on_connected += callback
+				cq.on("connected", callback)
 			elif name == "on_disconnected_from_ts_client":
-				self.mod_tessumod.g_ts.on_disconnected += callback
+				cq.on("disconnected", callback)
 			else:
 				raise RuntimeError("No such event: {0}".format(name))
-		else:
-			return False
+			return True
+		return False
 
 	def start_game(self, **game_state):
 		import mod_tessumod
@@ -141,9 +142,6 @@ class TestCaseBase(unittest.TestCase):
 			for callback in callbacks:
 				self.__install_event_handler(name, callback)
 
-		# hack to speed up testing
-		import tessumod.ts3
-		tessumod.ts3._UNREGISTER_WAIT_TIMEOUT = 0.5
 		self.change_game_state(**game_state)
 
 	def run_in_event_loop(self, timeout=20):
@@ -237,7 +235,7 @@ class TestCaseBase(unittest.TestCase):
 		key_path = os.path.join(states_dirpath, key)
 		if os.path.exists(key_path):
 			with open(key_path, "r") as file:
-				return file.read()
+				return json.loads(file.read())
 
 	def call_later(self, callback, timeout=0):
 		self.event_loop.call(callback, timeout=timeout)
@@ -254,7 +252,7 @@ class TestCaseBase(unittest.TestCase):
 			if time.time() >= self.__min_end_time and all(verifier() for verifier in self.__verifiers):
 				self.event_loop.exit()
 		except Exception as error:
-			print error
+			print "{0} in __check_verify: {1}".format(error.__class__.__name__, error)
 
 	def assert_finally_equal(self, a, b):
 		actual_getter = a if callable(a) else b

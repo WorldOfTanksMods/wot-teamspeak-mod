@@ -1,5 +1,5 @@
 # TessuMod: Mod for integrating TeamSpeak into World of Tanks
-# Copyright (C) 2014  Janne Hakonen
+# Copyright (C) 2016  Janne Hakonen
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -15,5 +15,41 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-MOD_VERSION = "{MOD_VERSION}"
-SUPPORT_URL = "{SUPPORT_URL}"
+import time
+import traceback
+
+class LOG_LEVEL(object):
+	DEBUG = 0
+	NOTE = 1
+	WARNING = 2
+	ERROR = 3
+
+CURRENT_LOG_LEVEL = LOG_LEVEL.NOTE
+
+def install_logger_impl(impl):
+	global LOG_DEBUG, LOG_DEBUG, LOG_NOTE, LOG_WARNING, LOG_ERROR, LOG_CURRENT_EXCEPTION
+	LOG_DEBUG = impl.debug
+	LOG_NOTE = impl.note
+	LOG_WARNING = impl.warning
+	LOG_ERROR = impl.error
+	LOG_CURRENT_EXCEPTION = impl.exception
+
+def LOG_DEBUG(msg, *args):
+	print msg
+
+def LOG_NOTE(msg, *args):
+	print msg
+
+def LOG_WARNING(msg, *args):
+	print msg
+
+def LOG_ERROR(msg, *args):
+	print msg
+
+def LOG_CURRENT_EXCEPTION():
+	print traceback.format_exc()
+
+def prefix_with_timestamp(msg):
+	if CURRENT_LOG_LEVEL <= LOG_LEVEL.DEBUG:
+		return time.strftime("[%H:%M:%S]") + " " + msg
+	return msg

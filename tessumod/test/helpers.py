@@ -1,5 +1,5 @@
 # TessuMod: Mod for integrating TeamSpeak into World of Tanks
-# Copyright (C) 2014  Janne Hakonen
+# Copyright (C) 2016  Janne Hakonen
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -15,5 +15,14 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
-MOD_VERSION = "{MOD_VERSION}"
-SUPPORT_URL = "{SUPPORT_URL}"
+import sys
+import os
+
+script_dirpath = os.path.dirname(os.path.realpath(__file__))
+project_rootpath = os.path.realpath(os.path.join(script_dirpath, "..", ".."))
+temp_dirpath = os.path.join(project_rootpath, "tmp")
+
+sys.path.extend([
+	os.path.realpath(os.path.join(project_rootpath, "futes", "fakes")),
+	os.path.realpath(os.path.join(project_rootpath, "tessumod", "src", "scripts", "client", "gui", "mods"))
+])
